@@ -13,15 +13,15 @@ import numpy as np
 import pandas as pd
 
 def computeCost(featuresAndPrediction, model):
-    allClusterCenters = [DenseVector(c) for c in model.clusterCenters()]
-    arrayCollection   = featuresAndPrediction.rdd.map(array)
+  allClusterCenters = [DenseVector(c) for c in model.clusterCenters()]
+  arrayCollection   = featuresAndPrediction.rdd.map(array)
 
-    def error(point, predictedCluster):
-        center = allClusterCenters[predictedCluster]
-        z      = point - center
-        return sqrt((z*z).sum())
+  def error(point, predictedCluster):
+    center = allClusterCenters[predictedCluster]
+    z      = point - center
+    return sqrt((z*z).sum())
     
-    return arrayCollection.map(lambda row: error(row[0], row[1])).reduce(lambda x, y: x + y)
+  return arrayCollection.map(lambda row: error(row[0], row[1])).reduce(lambda x, y: x + y)
 
 
 def elbow(elbowset, clusters):
