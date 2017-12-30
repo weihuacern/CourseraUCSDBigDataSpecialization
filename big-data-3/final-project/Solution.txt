@@ -1,0 +1,11 @@
+use sample
+db.users.find({"user.Location":null}).count()
+4251
+db.users.find({$where : "this.user.FollowersCount > this.user.FriendsCount"}).count()
+5809
+db.users.find({tweet_text : /http:\/\//}).count()
+10
+db.users.find({ $and : [ {tweet_text : /England/}, {tweet_text : {$not:/UEFA/}} ] }).count()
+35
+db.users.find({ $and : [ {"user.Location":"Ireland"}, {tweet_text : /UEFA/} ] }).count()
+4
